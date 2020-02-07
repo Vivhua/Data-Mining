@@ -1,0 +1,17 @@
+## import data ##
+import pandas as pd
+train = pd.read_csv('data/train.csv')
+
+filling_rate = train.count()/len(train)
+for i in filling_rate.index:
+    print(i , filling_rate.get(i))
+    
+## impute missing value (mode, mean, medium) ##
+train.gender.mode()
+train['gender'] = train['gender'].fillna('F')
+
+## encode categorical data ##
+print(train.dtypes)
+train["device_type"].value_counts()
+replace_rule = {"gender": {"F": 0, "M": 1}, "device_type" : {"desktop":0, "Android":1, "laptop":2, "other":3, "iPhone":4}}
+train.replace(replace_rule, inplace=True)    ## replace the categorical attributes
